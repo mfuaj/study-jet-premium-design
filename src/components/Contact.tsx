@@ -23,20 +23,38 @@ const Contact = () => {
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-5 h-5 text-gold" />
+                    <MapPin className="w-5 h-5 text-gold" />
                   </div>
                   <div>
-                    <p className="font-body font-medium text-primary mb-1">Email</p>
-                    <a href="mailto:info@studyjet.net" className="font-body text-muted-foreground hover:text-gold transition-colors">info@studyjet.net</a>
+                    <p className="font-body font-medium text-primary mb-1">Office</p>
+                    <p className="font-body text-muted-foreground">2/4 (4th Floor), Block-G, Lalmatia, Dhaka 1207</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-5 h-5 text-gold" />
+                    <Globe className="w-5 h-5 text-gold" />
                   </div>
                   <div>
-                    <p className="font-body font-medium text-primary mb-1">Office Locations</p>
-                    <p className="font-body text-muted-foreground">Hungary, Bangladesh, and European partner offices</p>
+                    <p className="font-body font-medium text-primary mb-1">Website</p>
+                    <a href="https://studybaseglobal.com" target="_blank" rel="noopener noreferrer" className="font-body text-muted-foreground hover:text-gold transition-colors">studybaseglobal.com</a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-5 h-5 text-gold" />
+                  </div>
+                  <div>
+                    <p className="font-body font-medium text-primary mb-1">WhatsApp</p>
+                    <a href="https://wa.me/36705517102" target="_blank" rel="noopener noreferrer" className="font-body text-muted-foreground hover:text-gold transition-colors">+36 70 551 7102</a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-5 h-5 text-gold" />
+                  </div>
+                  <div>
+                    <p className="font-body font-medium text-primary mb-1">Email</p>
+                    <a href="mailto:studybaseglobal@gmail.com" className="font-body text-muted-foreground hover:text-gold transition-colors">studybaseglobal@gmail.com</a>
                   </div>
                 </div>
               </div>
