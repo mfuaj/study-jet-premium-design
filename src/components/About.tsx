@@ -10,7 +10,7 @@ const About = () => {
             Who We Are
           </p>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-semibold text-primary mb-6">
-            About Study Jet
+            About Study Base
           </h2>
           <div className="w-24 h-0.5 bg-gold mx-auto" />
         </div>
@@ -18,11 +18,11 @@ const About = () => {
         {/* Main Content */}
         <div className="max-w-4xl mx-auto text-center mb-20">
           <p className="font-body text-lg md:text-xl text-muted-foreground leading-relaxed">
-            Study Jet is a leading education consultancy dedicated to assisting South Asian 
-            students in pursuing higher education abroad. With a highly experienced team and 
-            offices in multiple countries, we provide comprehensive support to students, 
-            ensuring a smooth admission and visa process. Our expertise helps students find 
-            the best institutions that match their academic and career aspirations.
+            Based in Europe, Study Base specializes in guiding students to fulfill their 
+            academic dreams abroad. With services covering Hungary, France, Italy, Germany, 
+            Spain, and more, we assist students in securing admissions, scholarships, and visa 
+            support. Our dedicated team of award-winning consultants and social workers is 
+            committed to making the process smooth, efficient, and successful.
           </p>
         </div>
 

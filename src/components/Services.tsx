@@ -2,54 +2,48 @@ import {
   GraduationCap,
   FileCheck,
   FileText,
-  Plane,
-  Award,
   Briefcase,
-  BookOpen,
+  Award,
+  Users,
+  Shield,
 } from "lucide-react";
 
 const services = [
   {
     icon: GraduationCap,
-    title: "University Admission Assistance",
+    title: "University Admission & Transfer Support",
     description:
-      "Helping students choose the right university and program based on their academic background and career goals.",
-  },
-  {
-    icon: FileCheck,
-    title: "Visa Consultation",
-    description:
-      "Guiding students through the visa application process, ensuring compliance with all necessary requirements.",
-  },
-  {
-    icon: FileText,
-    title: "Documentation Support",
-    description:
-      "Assisting with application forms, personal statements, recommendation letters, and financial documents.",
-  },
-  {
-    icon: Plane,
-    title: "Pre-Departure Guidance",
-    description:
-      "Providing essential information on accommodation, cultural adaptation, and travel arrangements.",
+      "We help students secure admissions at top European universities and provide seamless support for those transferring. Our team ensures each student finds the right fit for their academic and personal goals.",
   },
   {
     icon: Award,
-    title: "Scholarship Assistance",
+    title: "Scholarships & Financial Aid",
     description:
-      "Helping students explore and apply for scholarships and financial aid opportunities.",
+      "We assist in applying for scholarships and financial aid to help ease the cost of studying abroad. Our expertise in scholarship applications increases students' chances of receiving funding.",
   },
   {
     icon: Briefcase,
-    title: "Career Counseling",
+    title: "Job Opportunities",
     description:
-      "Offering expert advice on career prospects, internships, and job placements post-graduation.",
+      "Our job placement assistance helps students find work opportunities to support their studies, providing both financial support and valuable experience.",
   },
   {
-    icon: BookOpen,
-    title: "Test Preparation",
+    icon: FileCheck,
+    title: "Visa & Immigration Assistance",
     description:
-      "Assisting students with IELTS, TOEFL, GRE, GMAT, and other standardized tests required for admission.",
+      "Navigating visa requirements is complex. Our experts guide students through the process, ensuring all documentation is in order for a successful application.",
+  },
+  {
+    icon: FileText,
+    title: "Document & Legal Support",
+    description:
+      "We offer comprehensive document support, including notarization, translation, and legal certifications. Our team ensures all paperwork meets university and immigration standards.",
+  },
+  {
+    icon: Users,
+    title: "Student Support Services",
+    description:
+      "From accommodation and airport pickup to financial advice and local orientation, our support services are designed to make the transition to studying abroad as smooth as possible.",
   },
 ];
 
@@ -72,7 +66,7 @@ const Services = () => {
         </div>
 
         {/* Services Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <div
               key={index}

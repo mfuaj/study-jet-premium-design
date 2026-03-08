@@ -15,8 +15,7 @@ const Contact = () => {
           </h2>
           <div className="w-24 h-0.5 bg-gold mx-auto mb-8" />
           <p className="font-body text-muted-foreground max-w-2xl mx-auto text-lg">
-            Ready to take the first step towards your international education? 
-            Contact us today for a free consultation.
+            Ready to start your journey with Study Base? Reach out to us today!
           </p>
         </div>
 
@@ -31,47 +30,15 @@ const Contact = () => {
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Globe className="w-5 h-5 text-gold" />
-                  </div>
-                  <div>
-                    <p className="font-body font-medium text-primary mb-1">Website</p>
-                    <a
-                      href="https://studyjet.net/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-body text-muted-foreground hover:text-gold transition-colors"
-                    >
-                      studyjet.net
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center flex-shrink-0">
                     <Mail className="w-5 h-5 text-gold" />
                   </div>
                   <div>
                     <p className="font-body font-medium text-primary mb-1">Email</p>
                     <a
-                      href="mailto:studyjet.official@gmail.com"
+                      href="mailto:info@studyjet.net"
                       className="font-body text-muted-foreground hover:text-gold transition-colors"
                     >
-                      studyjet.official@gmail.com
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-5 h-5 text-gold" />
-                  </div>
-                  <div>
-                    <p className="font-body font-medium text-primary mb-1">Phone</p>
-                    <a
-                      href="tel:+36705517102"
-                      className="font-body text-muted-foreground hover:text-gold transition-colors"
-                    >
-                      +36 70 551 7102
+                      info@studyjet.net
                     </a>
                   </div>
                 </div>
@@ -83,7 +50,7 @@ const Contact = () => {
                   <div>
                     <p className="font-body font-medium text-primary mb-1">Office Locations</p>
                     <p className="font-body text-muted-foreground">
-                      Pakistan, Bangladesh, UK, Hungary, Australia
+                      Hungary, Bangladesh, and European partner offices
                     </p>
                   </div>
                 </div>
@@ -138,11 +105,11 @@ const Contact = () => {
                 </label>
                 <select className="w-full px-4 py-3 bg-muted border border-border rounded-lg font-body text-foreground focus:outline-none focus:border-gold transition-colors">
                   <option value="">Select a country</option>
-                  <option value="usa">USA</option>
-                  <option value="uk">United Kingdom</option>
-                  <option value="canada">Canada</option>
-                  <option value="australia">Australia</option>
-                  <option value="europe">Europe</option>
+                  <option value="hungary">Hungary</option>
+                  <option value="france">France</option>
+                  <option value="italy">Italy</option>
+                  <option value="germany">Germany</option>
+                  <option value="spain">Spain</option>
                   <option value="other">Other</option>
                 </select>
               </div>

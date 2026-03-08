@@ -100,7 +100,7 @@ const WhyUs = () => {
             Our Global Presence
           </h3>
           <div className="flex flex-wrap justify-center gap-4 lg:gap-6">
-            {["Pakistan", "Bangladesh", "India", "Nepal", "Sri Lanka", "UK", "Hungary", "Australia"].map(
+            {["Hungary", "Bangladesh", "European Partner Offices"].map(
               (country) => (
                 <span
                   key={country}
