@@ -1,4 +1,6 @@
 import { MapPin } from "lucide-react";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import EuropeMap from "@/components/EuropeMap";
 
 const countries = [
   {
@@ -34,11 +36,20 @@ const countries = [
 ];
 
 const Countries = () => {
+  const header = useScrollReveal();
+  const map = useScrollReveal({ threshold: 0.1 });
+  const grid = useScrollReveal({ threshold: 0.1 });
+
   return (
     <section id="countries" className="py-24 lg:py-32 bg-background">
       <div className="container mx-auto px-6">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div
+          ref={header.ref}
+          className={`text-center mb-16 transition-all duration-700 ${
+            header.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
           <p className="text-gold font-body text-sm uppercase tracking-[0.25em] mb-4">
             Study Destinations
           </p>
@@ -48,12 +59,30 @@ const Countries = () => {
           <div className="w-24 h-0.5 bg-gold mx-auto" />
         </div>
 
+        {/* Interactive Map */}
+        <div
+          ref={map.ref}
+          className={`mb-20 transition-all duration-1000 ${
+            map.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
+          }`}
+        >
+          <EuropeMap />
+        </div>
+
         {/* Countries Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div
+          ref={grid.ref}
+          className={`grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto transition-all duration-700 ${
+            grid.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+          }`}
+        >
           {countries.map((country, index) => (
             <div
               key={index}
               className="bg-card p-8 rounded-lg shadow-elegant border border-border/50 group hover:shadow-card hover:border-gold/30 transition-all duration-500 relative overflow-hidden"
+              style={{
+                transitionDelay: grid.isVisible ? `${index * 100}ms` : "0ms",
+              }}
             >
               <div className="absolute top-4 right-4 text-4xl opacity-20 group-hover:opacity-40 transition-opacity duration-500">
                 {country.flag}
