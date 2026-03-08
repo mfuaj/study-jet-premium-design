@@ -102,9 +102,9 @@ const EuropeMap = () => {
       <ComposableMap
         projection="geoAzimuthalEqualArea"
         projectionConfig={{
-          rotate: [-10, -52, 0],
+          rotate: [-20, -50, 0],
           center: [0, 0],
-          scale: 900,
+          scale: 600,
         }}
         width={800}
         height={500}
