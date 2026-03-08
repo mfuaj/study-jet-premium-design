@@ -1,11 +1,21 @@
 import { Target, Eye } from "lucide-react";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const About = () => {
+  const header = useScrollReveal();
+  const content = useScrollReveal();
+  const cards = useScrollReveal({ threshold: 0.1 });
+
   return (
     <section id="about" className="py-24 lg:py-32 bg-background">
       <div className="container mx-auto px-6">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div
+          ref={header.ref}
+          className={`text-center mb-16 transition-all duration-700 ${
+            header.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
           <p className="text-gold font-body text-sm uppercase tracking-[0.25em] mb-4">
             Who We Are
           </p>
@@ -16,7 +26,12 @@ const About = () => {
         </div>
 
         {/* Main Content */}
-        <div className="max-w-4xl mx-auto text-center mb-20">
+        <div
+          ref={content.ref}
+          className={`max-w-4xl mx-auto text-center mb-20 transition-all duration-700 delay-200 ${
+            content.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
           <p className="font-body text-lg md:text-xl text-muted-foreground leading-relaxed">
             Based in Europe, Study Base specializes in guiding students to fulfill their 
             academic dreams abroad. With services covering Hungary, France, Italy, Germany, 
@@ -27,8 +42,12 @@ const About = () => {
         </div>
 
         {/* Mission & Vision */}
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-          {/* Mission Card */}
+        <div
+          ref={cards.ref}
+          className={`grid md:grid-cols-2 gap-8 lg:gap-12 transition-all duration-700 ${
+            cards.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+          }`}
+        >
           <div className="bg-card p-8 lg:p-10 rounded-lg shadow-card border border-border/50 group hover:border-gold/30 transition-all duration-500">
             <div className="w-14 h-14 bg-primary/5 rounded-lg flex items-center justify-center mb-6 group-hover:bg-gold/10 transition-colors duration-500">
               <Target className="w-7 h-7 text-gold" />
@@ -44,8 +63,10 @@ const About = () => {
             </p>
           </div>
 
-          {/* Vision Card */}
-          <div className="bg-card p-8 lg:p-10 rounded-lg shadow-card border border-border/50 group hover:border-gold/30 transition-all duration-500">
+          <div
+            className="bg-card p-8 lg:p-10 rounded-lg shadow-card border border-border/50 group hover:border-gold/30 transition-all duration-500"
+            style={{ transitionDelay: cards.isVisible ? "150ms" : "0ms" }}
+          >
             <div className="w-14 h-14 bg-primary/5 rounded-lg flex items-center justify-center mb-6 group-hover:bg-gold/10 transition-colors duration-500">
               <Eye className="w-7 h-7 text-gold" />
             </div>
