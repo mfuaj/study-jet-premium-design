@@ -64,15 +64,12 @@ const Countries = () => {
                 transitionDelay: grid.isVisible ? `${index * 100}ms` : "0ms",
               }}
             >
-              <div className="absolute top-4 right-4 text-4xl opacity-20 group-hover:opacity-40 transition-opacity duration-500">
-                {country.flag}
+              <div className="flex items-center gap-4 mb-5">
+                <span className="text-5xl">{country.flag}</span>
+                <h3 className="font-display text-2xl font-semibold text-primary">
+                  {country.name}
+                </h3>
               </div>
-              <div className="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center mb-5 group-hover:bg-gold/10 transition-colors duration-500">
-                <MapPin className="w-6 h-6 text-gold" />
-              </div>
-              <h3 className="font-display text-2xl font-semibold text-primary mb-3">
-                {country.name}
-              </h3>
               <p className="font-body text-muted-foreground text-sm leading-relaxed">
                 {country.description}
               </p>
