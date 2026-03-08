@@ -3,13 +3,13 @@ import { Quote } from "lucide-react";
 const testimonials = [
   {
     quote:
-      "Study Jet made my dream of studying abroad a reality. Their team guided me through the entire admission and visa process effortlessly.",
+      "Study Base made my dream of studying abroad a reality. Their team guided me through the entire admission and visa process effortlessly.",
     name: "Jahidul Islam",
     location: "Bangladesh",
   },
   {
     quote:
-      "Thanks to Study Jet, I secured my admission in Hungary. Their expert guidance was invaluable.",
+      "Thanks to Study Base, I secured my admission in Hungary. Their expert guidance was invaluable.",
     name: "Sahil Safraz",
     location: "Pakistan",
   },
@@ -55,25 +55,6 @@ const Testimonials = () => {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Partner Universities */}
-        <div className="mt-24 text-center">
-          <h3 className="font-display text-2xl md:text-3xl font-semibold text-cream mb-8">
-            Partner Universities Across
-          </h3>
-          <div className="flex flex-wrap justify-center gap-4 lg:gap-6">
-            {["USA", "UK", "Canada", "Australia", "New Zealand", "Europe"].map(
-              (region) => (
-                <span
-                  key={region}
-                  className="px-8 py-4 bg-cream/5 backdrop-blur-sm rounded-full font-display text-lg text-cream border border-cream/20 hover:border-gold/50 hover:bg-gold/10 transition-all duration-300"
-                >
-                  {region}
-                </span>
-              )
-            )}
-          </div>
         </div>
       </div>
     </section>

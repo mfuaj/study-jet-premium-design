@@ -1,3 +1,5 @@
+import logo from "@/assets/logo.png";
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
@@ -7,12 +9,15 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-10 mb-12">
           {/* Brand */}
           <div className="md:col-span-2">
-            <a href="#" className="font-display text-3xl font-semibold text-cream">
-              Study<span className="text-gold">Jet</span>
+            <a href="#" className="flex items-center gap-2 mb-4">
+              <img src={logo} alt="Study Base" className="w-10 h-10 object-contain brightness-200" />
+              <span className="font-display text-3xl font-semibold text-cream">
+                Study<span className="text-gold">Base</span>
+              </span>
             </a>
-            <p className="font-body text-cream/70 mt-4 max-w-md leading-relaxed">
-              Your trusted partner in international education. We help South Asian 
-              students achieve their dreams of studying at prestigious universities worldwide.
+            <p className="font-body text-cream/70 max-w-md leading-relaxed">
+              Based in Europe, Study Base specializes in guiding students to fulfill their 
+              academic dreams abroad with comprehensive support and expert guidance.
             </p>
           </div>
 
@@ -22,7 +27,7 @@ const Footer = () => {
               Quick Links
             </h4>
             <ul className="space-y-3">
-              {["About Us", "Services", "Why Choose Us", "Testimonials", "Contact"].map(
+              {["About Us", "Services", "Countries", "Why Us", "Testimonials", "Contact"].map(
                 (link) => (
                   <li key={link}>
                     <a
@@ -45,10 +50,10 @@ const Footer = () => {
             <ul className="space-y-3">
               {[
                 "University Admission",
-                "Visa Consultation",
-                "Scholarship Assistance",
-                "Test Preparation",
-                "Career Counseling",
+                "Visa Assistance",
+                "Scholarship Aid",
+                "Job Opportunities",
+                "Document Support",
               ].map((service) => (
                 <li key={service}>
                   <a
@@ -66,7 +71,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-cream/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="font-body text-cream/50 text-sm">
-            © {currentYear} Study Jet. All rights reserved.
+            © {currentYear} Study Base. All rights reserved.
           </p>
           <div className="flex gap-6">
             <a

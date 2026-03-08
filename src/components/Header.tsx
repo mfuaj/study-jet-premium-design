@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,6 +18,7 @@ const Header = () => {
   const navLinks = [
     { label: "About", href: "#about" },
     { label: "Services", href: "#services" },
+    { label: "Countries", href: "#countries" },
     { label: "Why Us", href: "#why-us" },
     { label: "Testimonials", href: "#testimonials" },
     { label: "Contact", href: "#contact" },
@@ -26,19 +28,21 @@ const Header = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-card/95 backdrop-blur-md shadow-elegant py-4"
+          ? "bg-card/95 backdrop-blur-md shadow-elegant py-3"
           : "bg-transparent py-6"
       }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <a
-          href="#"
-          className={`font-display text-2xl font-semibold transition-colors duration-300 ${
-            isScrolled ? "text-primary" : "text-cream"
-          }`}
-        >
-          Study<span className="text-gold">Jet</span>
+        <a href="#" className="flex items-center gap-2">
+          <img src={logo} alt="Study Base" className="w-10 h-10 object-contain" />
+          <span
+            className={`font-display text-2xl font-semibold transition-colors duration-300 ${
+              isScrolled ? "text-primary" : "text-cream"
+            }`}
+          >
+            Study<span className="text-gold">Base</span>
+          </span>
         </a>
 
         {/* Desktop Navigation */}
