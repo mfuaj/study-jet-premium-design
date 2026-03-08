@@ -1,85 +1,74 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import {
   ComposableMap,
   Geographies,
   Geography,
   Marker,
-  ZoomableGroup,
 } from "react-simple-maps";
 
-const GEO_URL = "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries.json";
+const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json";
 
 const highlightedCountries: Record<string, { name: string; coordinates: [number, number]; flag: string; description: string }> = {
   Hungary: {
     name: "Hungary",
     coordinates: [19.5, 47.2],
     flag: "🇭🇺",
-    description: "Vibrant student life and high-quality education make Hungary an ideal choice.",
+    description: "Vibrant student life and high-quality education make Hungary an ideal choice. We provide comprehensive support for students studying in Hungary.",
   },
   France: {
     name: "France",
     coordinates: [2.2, 46.6],
     flag: "🇫🇷",
-    description: "Top universities and rich culture make France a prime study destination.",
+    description: "With top universities and rich culture, France is a prime study destination. We help with admissions, scholarships, and documentation.",
   },
   Italy: {
     name: "Italy",
     coordinates: [12.5, 42.5],
     flag: "🇮🇹",
-    description: "Historic universities attract students worldwide to Italy.",
+    description: "Italy's historic universities attract students worldwide. We support applications, accommodations, and career opportunities.",
   },
   Germany: {
     name: "Germany",
     coordinates: [10.4, 51.2],
     flag: "🇩🇪",
-    description: "Affordable education and world-class research facilities.",
+    description: "Known for affordable education and research facilities, Germany is a top choice. We guide students through admission, scholarships, and visa processes.",
   },
   Spain: {
     name: "Spain",
     coordinates: [-3.7, 40.4],
     flag: "🇪🇸",
-    description: "A unique blend of culture and education makes Spain popular.",
+    description: "A unique blend of culture and education makes Spain popular. Our services cover admissions, scholarships, and job placements.",
   },
 };
 
 const highlightedNames = Object.keys(highlightedCountries);
 
 const EuropeMap = () => {
-  const [activeCountry, setActiveCountry] = useState<string | null>(null);
+  const [activeMarker, setActiveMarker] = useState<string | null>(null);
+  const [hoveredGeo, setHoveredGeo] = useState<string | null>(null);
   const [tooltipPos, setTooltipPos] = useState<{ x: number; y: number } | null>(null);
+  const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
 
-  const handleMouseEnter = (name: string, e: React.MouseEvent) => {
-    if (highlightedNames.includes(name)) {
-      setActiveCountry(name);
-      const rect = (e.currentTarget as SVGElement).closest(".rsm-svg")?.getBoundingClientRect();
-      if (rect) {
-        setTooltipPos({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top - 10,
-        });
-      }
+  const updateTooltip = useCallback((name: string, e: React.MouseEvent) => {
+    if (containerRef) {
+      const rect = containerRef.getBoundingClientRect();
+      setTooltipPos({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top - 16,
+      });
     }
-  };
+    setActiveMarker(name);
+  }, [containerRef]);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (activeCountry) {
-      const rect = (e.currentTarget as SVGElement).closest(".rsm-svg")?.getBoundingClientRect();
-      if (rect) {
-        setTooltipPos({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top - 10,
-        });
-      }
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setActiveCountry(null);
+  const clearTooltip = useCallback(() => {
+    setActiveMarker(null);
     setTooltipPos(null);
-  };
+  }, []);
+
+  const activeData = activeMarker ? highlightedCountries[activeMarker] : null;
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto rounded-2xl overflow-hidden bg-card border border-border/50 shadow-card">
+    <div ref={setContainerRef} className="relative w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-border/50 shadow-card" style={{ background: "hsl(222, 47%, 12%)" }}>
       <ComposableMap
         projection="geoAzimuthalEqualArea"
         projectionConfig={{
@@ -89,16 +78,11 @@ const EuropeMap = () => {
         }}
         width={800}
         height={500}
-        className="rsm-svg"
         style={{ width: "100%", height: "auto" }}
       >
         <defs>
-          <radialGradient id="map-bg-gradient" cx="50%" cy="50%" r="60%">
-            <stop offset="0%" stopColor="hsl(222, 47%, 18%)" />
-            <stop offset="100%" stopColor="hsl(222, 47%, 10%)" />
-          </radialGradient>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+          <filter id="country-glow">
+            <feGaussianBlur stdDeviation="4" result="coloredBlur" />
             <feMerge>
               <feMergeNode in="coloredBlur" />
               <feMergeNode in="SourceGraphic" />
@@ -106,59 +90,44 @@ const EuropeMap = () => {
           </filter>
         </defs>
 
-        {/* Background */}
-        <rect x="-100" y="-100" width="1000" height="700" fill="url(#map-bg-gradient)" />
-
         <Geographies geography={GEO_URL}>
           {({ geographies }) =>
             geographies.map((geo) => {
               const name = geo.properties.name;
               const isHighlighted = highlightedNames.includes(name);
-              const isActive = activeCountry === name;
+              const isHovered = hoveredGeo === name && isHighlighted;
 
               return (
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  onMouseEnter={(e) => handleMouseEnter(name, e as unknown as React.MouseEvent)}
-                  onMouseMove={handleMouseMove as any}
-                  onMouseLeave={handleMouseLeave}
+                  onMouseEnter={() => {
+                    if (isHighlighted) setHoveredGeo(name);
+                  }}
+                  onMouseLeave={() => setHoveredGeo(null)}
+                  fill={
+                    isHovered
+                      ? "hsl(38, 65%, 55%)"
+                      : isHighlighted
+                      ? "hsl(222, 35%, 38%)"
+                      : "hsl(222, 30%, 24%)"
+                  }
+                  stroke="hsl(222, 20%, 45%)"
+                  strokeWidth={isHighlighted ? 1.2 : 0.6}
                   style={{
                     default: {
-                      fill: isHighlighted
-                        ? isActive
-                          ? "hsl(38, 65%, 55%)"
-                          : "hsl(222, 35%, 35%)"
-                        : "hsl(222, 47%, 22%)",
-                      stroke: isHighlighted
-                        ? isActive
-                          ? "hsl(38, 65%, 65%)"
-                          : "hsl(222, 35%, 42%)"
-                        : "hsl(222, 35%, 28%)",
-                      strokeWidth: isHighlighted ? 1 : 0.5,
                       outline: "none",
-                      transition: "all 0.3s ease",
-                      cursor: isHighlighted ? "pointer" : "default",
-                      filter: isActive ? "url(#glow)" : "none",
+                      transition: "fill 0.3s ease",
                     },
                     hover: {
-                      fill: isHighlighted
-                        ? "hsl(38, 65%, 55%)"
-                        : "hsl(222, 35%, 30%)",
-                      stroke: isHighlighted
-                        ? "hsl(38, 65%, 65%)"
-                        : "hsl(222, 35%, 35%)",
-                      strokeWidth: isHighlighted ? 1.5 : 0.5,
+                      fill: isHighlighted ? "hsl(38, 65%, 55%)" : "hsl(222, 30%, 30%)",
                       outline: "none",
+                      stroke: isHighlighted ? "hsl(38, 65%, 70%)" : "hsl(222, 20%, 45%)",
+                      strokeWidth: isHighlighted ? 2 : 0.6,
+                      filter: isHighlighted ? "url(#country-glow)" : "none",
                       cursor: isHighlighted ? "pointer" : "default",
-                      filter: isHighlighted ? "url(#glow)" : "none",
                     },
-                    pressed: {
-                      fill: isHighlighted
-                        ? "hsl(38, 65%, 50%)"
-                        : "hsl(222, 47%, 22%)",
-                      outline: "none",
-                    },
+                    pressed: { outline: "none" },
                   }}
                 />
               );
@@ -166,33 +135,36 @@ const EuropeMap = () => {
           }
         </Geographies>
 
-        {/* Pulsing markers on highlighted countries */}
-        {Object.values(highlightedCountries).map((country) => (
-          <Marker key={country.name} coordinates={country.coordinates}>
-            <circle r={5} fill="hsl(38, 65%, 55%)" opacity={0.9}>
-              <animate
-                attributeName="r"
-                values="4;8;4"
-                dur="2.5s"
-                repeatCount="indefinite"
-              />
-              <animate
-                attributeName="opacity"
-                values="0.8;0.2;0.8"
-                dur="2.5s"
-                repeatCount="indefinite"
-              />
+        {/* Markers with hover interaction */}
+        {Object.entries(highlightedCountries).map(([key, country]) => (
+          <Marker key={key} coordinates={country.coordinates}>
+            {/* Outer pulsing ring */}
+            <circle r={6} fill="none" stroke="hsl(38, 65%, 55%)" strokeWidth={1.5} opacity={0.6}>
+              <animate attributeName="r" values="6;12;6" dur="2.5s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.6;0;0.6" dur="2.5s" repeatCount="indefinite" />
             </circle>
-            <circle r={3} fill="hsl(38, 65%, 55%)" />
+            {/* Inner dot */}
+            <circle
+              r={5}
+              fill="hsl(38, 65%, 55%)"
+              stroke="hsl(45, 100%, 96%)"
+              strokeWidth={1.5}
+              style={{ cursor: "pointer", transition: "r 0.2s ease" }}
+              onMouseEnter={(e) => updateTooltip(key, e as unknown as React.MouseEvent)}
+              onMouseMove={(e) => updateTooltip(key, e as unknown as React.MouseEvent)}
+              onMouseLeave={clearTooltip}
+            />
+            {/* Country label */}
             <text
               textAnchor="middle"
-              y={-12}
+              y={-14}
               style={{
                 fontFamily: "'DM Sans', sans-serif",
-                fontSize: 10,
+                fontSize: 11,
                 fill: "hsl(45, 100%, 96%)",
-                fontWeight: 500,
+                fontWeight: 600,
                 pointerEvents: "none",
+                textShadow: "0 1px 4px rgba(0,0,0,0.6)",
               }}
             >
               {country.name}
@@ -201,37 +173,43 @@ const EuropeMap = () => {
         ))}
       </ComposableMap>
 
-      {/* Tooltip */}
-      {activeCountry && tooltipPos && highlightedCountries[activeCountry] && (
+      {/* Tooltip on marker hover */}
+      {activeData && tooltipPos && (
         <div
-          className="absolute pointer-events-none bg-card/95 backdrop-blur-md p-4 rounded-lg shadow-card border border-gold/30 max-w-[240px] z-20"
+          className="absolute pointer-events-none z-30 animate-fade-in"
           style={{
             left: tooltipPos.x,
             top: tooltipPos.y,
             transform: "translate(-50%, -100%)",
           }}
         >
-          <div className="flex items-center gap-2 mb-2">
-            <span className="text-2xl">{highlightedCountries[activeCountry].flag}</span>
-            <h4 className="font-display text-lg font-semibold text-primary">
-              {highlightedCountries[activeCountry].name}
-            </h4>
+          <div className="bg-card/95 backdrop-blur-xl p-5 rounded-xl shadow-card border border-gold/40 max-w-[260px]">
+            <div className="flex items-center gap-2.5 mb-3">
+              <span className="text-3xl">{activeData.flag}</span>
+              <h4 className="font-display text-xl font-semibold text-primary">
+                {activeData.name}
+              </h4>
+            </div>
+            <p className="font-body text-muted-foreground text-sm leading-relaxed">
+              {activeData.description}
+            </p>
           </div>
-          <p className="font-body text-muted-foreground text-xs leading-relaxed">
-            {highlightedCountries[activeCountry].description}
-          </p>
+          {/* Arrow */}
+          <div className="flex justify-center">
+            <div className="w-3 h-3 bg-card/95 border-r border-b border-gold/40 transform rotate-45 -mt-1.5" />
+          </div>
         </div>
       )}
 
       {/* Legend */}
-      <div className="absolute bottom-4 left-4 flex items-center gap-3 bg-card/80 backdrop-blur-sm px-4 py-2 rounded-lg border border-border/50">
-        <div className="flex items-center gap-1.5">
-          <div className="w-3 h-3 rounded-sm" style={{ background: "hsl(222, 35%, 35%)" }} />
+      <div className="absolute bottom-4 left-4 flex items-center gap-4 bg-card/80 backdrop-blur-sm px-4 py-2.5 rounded-lg border border-border/50">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-sm" style={{ background: "hsl(222, 35%, 38%)" }} />
           <span className="font-body text-xs text-muted-foreground">Our Destinations</span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <div className="w-3 h-3 rounded-sm" style={{ background: "hsl(38, 65%, 55%)" }} />
-          <span className="font-body text-xs text-muted-foreground">Active</span>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full" style={{ background: "hsl(38, 65%, 55%)" }} />
+          <span className="font-body text-xs text-muted-foreground">Hover for details</span>
         </div>
       </div>
     </div>
