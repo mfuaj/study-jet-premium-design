@@ -3,36 +3,16 @@ import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import EuropeMap from "@/components/EuropeMap";
 
 const countries = [
-  {
-    name: "Hungary",
-    description:
-      "Vibrant student life and high-quality education make Hungary an ideal choice. We provide comprehensive support for students studying in Hungary.",
-    flag: "🇭🇺",
-  },
-  {
-    name: "France",
-    description:
-      "With top universities and rich culture, France is a prime study destination. We help with admissions, scholarships, and documentation.",
-    flag: "🇫🇷",
-  },
-  {
-    name: "Italy",
-    description:
-      "Italy's historic universities attract students worldwide. We support applications, accommodations, and career opportunities.",
-    flag: "🇮🇹",
-  },
-  {
-    name: "Germany",
-    description:
-      "Known for affordable education and research facilities, Germany is a top choice. We guide students through admission, scholarships, and visa processes.",
-    flag: "🇩🇪",
-  },
-  {
-    name: "Spain",
-    description:
-      "A unique blend of culture and education makes Spain popular. Our services cover admissions, scholarships, and job placements.",
-    flag: "🇪🇸",
-  },
+  { name: "Hungary", description: "Vibrant student life and high-quality education make Hungary an ideal choice.", flag: "🇭🇺" },
+  { name: "France", description: "Top universities and rich culture make France a prime study destination.", flag: "🇫🇷" },
+  { name: "Italy", description: "Italy's historic universities attract students worldwide.", flag: "🇮🇹" },
+  { name: "Germany", description: "Affordable education and world-class research facilities.", flag: "🇩🇪" },
+  { name: "Spain", description: "A unique blend of culture and education makes Spain popular.", flag: "🇪🇸" },
+  { name: "Malta", description: "English-speaking Mediterranean island with quality European education.", flag: "🇲🇹" },
+  { name: "Netherlands", description: "Innovative education system with many English-taught programs.", flag: "🇳🇱" },
+  { name: "South Korea", description: "Leading technology hub with top-ranked universities in Asia.", flag: "🇰🇷" },
+  { name: "Lithuania", description: "Affordable tuition and living costs with quality European degrees.", flag: "🇱🇹" },
+  { name: "Romania", description: "Growing destination for medical and engineering studies in Europe.", flag: "🇷🇴" },
 ];
 
 const Countries = () => {
